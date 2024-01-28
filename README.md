@@ -34,3 +34,5 @@ The following image shows the web application's appearance:
 
 ## GitHub project URL: https://github.com/maslla100/Note-Taker
 
+## Heroku app URL:  https://note-taker-llamas-bd8d16355482.herokuapp.com/
+
