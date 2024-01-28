@@ -12,12 +12,12 @@ app.use(express.static('public'));
 
 // HTML Route for /notes
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/notes.html'));
+    res.sendFile(path.join(__dirname, 'public', 'notes.html'));
 });
 
 // API Route to get all notes
 app.get('/api/notes', (req, res) => {
-    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
         if (err) throw err;
         res.json(JSON.parse(data));
     });
@@ -27,12 +27,12 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     const newNote = { ...req.body, id: uuidv4() };
 
-    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
         if (err) throw err;
         const notes = JSON.parse(data);
         notes.push(newNote);
 
-        fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
+        fs.writeFile('./Develop/db/db.json', JSON.stringify(notes), (err) => {
             if (err) throw err;
             res.json(newNote);
         });
@@ -44,7 +44,7 @@ app.post('/api/notes', (req, res) => {
 app.delete('/api/notes/:id', (req, res) => {
     const noteId = req.params.id;
 
-    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Internal server error' });
@@ -54,7 +54,7 @@ app.delete('/api/notes/:id', (req, res) => {
             const notes = JSON.parse(data);
             const updatedNotes = notes.filter(note => note.id !== noteId);
 
-            fs.writeFile('./db/db.json', JSON.stringify(updatedNotes), (err) => {
+            fs.writeFile('./Develop/db/db.json', JSON.stringify(updatedNotes), (err) => {
                 if (err) {
                     console.error(err);
                     return res.status(500).json({ error: 'Internal server error' });
@@ -72,7 +72,7 @@ app.delete('/api/notes/:id', (req, res) => {
 
 // Fallback route for the home page
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
