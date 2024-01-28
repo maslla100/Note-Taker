@@ -12,7 +12,7 @@ app.use(express.static('public'));
 
 // HTML Route for /notes
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'notes.html'));
+    res.sendFile(path.join(__dirname, 'Develop', 'public', 'notes.html'));
 });
 
 // API Route to get all notes
@@ -72,7 +72,7 @@ app.delete('/api/notes/:id', (req, res) => {
 
 // Fallback route for the home page
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'Develop', 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
